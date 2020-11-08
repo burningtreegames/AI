@@ -1,0 +1,13 @@
+--------------------------------------------
+Notes
+--------------------------------------------
+
+- Make buttons and scrollable in GUI menu
+
+- Create more tiles duh
+
+- Save map
+
+- Clean up code and comment
+
+- Animations increase with amount of tiles placed.... most irregular...
