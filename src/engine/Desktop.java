@@ -15,7 +15,7 @@ public class Desktop {
 		config = new LwjglApplicationConfiguration();
 		config.width = Game.getWindowWidth();
 		config.height = Game.getWindowHeight();
-		config.title = "Map Editor";
+		config.title = "AI";
 		config.vSyncEnabled = true;
 		config.forceExit = true;
 		new LwjglApplication(new Game(), config);

@@ -5,16 +5,18 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Entity
 {
-	static private float x;
-	static private float y;
+	static public float x;
+	static public float y;
 	static private float rot;
 	
 	static private float xVel;
 	static private float yVel;
-	static private float rotVel;
+	static public float rotVel;
 	static private float friction;
 	
 	static private float maxSpeed;
@@ -25,7 +27,7 @@ public class Entity
 	public Entity(float x, float y)
 	{
 		friction = 0.005f;
-		maxSpeed = 5f;
+		maxSpeed = 1f;
 		maxRotSpeed = 1f;
 		
 		this.x = x;
@@ -35,7 +37,6 @@ public class Entity
 		sprite.setSize(Game.getSpriteSize() * Game.getScale(), Game.getSpriteSize() * Game.getScale());
 		sprite.setFlip(false, true);
 		sprite.setOriginCenter();
-		sprite.rotate90(true);
 		sprite.setCenterX(x);
 		sprite.setCenterY(y);
 	}
@@ -55,12 +56,14 @@ public class Entity
 			rotVel = rotVel + Gdx.graphics.getDeltaTime();
 		if(Gdx.input.isKeyPressed(Keys.W))
 		{
-			xVel = (float) ( (2* Math.sin(sprite.getRotation())));
-			yVel = yVel - (Gdx.graphics.getDeltaTime()) * (float)Math.cos(sprite.getRotation());
+			if(xVel < maxSpeed && xVel > -maxSpeed)
+				xVel = (float) (xVel + ((Game.getSpriteSize() * Game.getScale()) * Math.cos(sprite.getRotation() / (Game.getSpriteSize() * 1.8))) * (Gdx.graphics.getDeltaTime() * 0.1));
+			if(yVel < maxSpeed && yVel > -maxSpeed)
+				yVel = (float) (yVel + ((Game.getSpriteSize() * Game.getScale()) * Math.sin(sprite.getRotation() / (Game.getSpriteSize() * 1.8))) * (Gdx.graphics.getDeltaTime() * 0.1));
+			System.out.println(xVel);
 		}
-		
-	    System.out.println(xVel);
-				                       
+
+		                      
 		
 		/*if(Gdx.input.isKeyPressed(Keys.S) && yVel < maxSpeed)
 			yVel = yVel + Gdx.graphics.getDeltaTime();
@@ -118,7 +121,7 @@ public class Entity
 		sprite.draw(Game.getSpriteBatch());
 	}
 	
-	public static void resize()
+	public void resize()
 	{
 		sprite.setSize(Game.getSpriteSize() * Game.getScale(), Game.getSpriteSize() * Game.getScale());
 		sprite.setOriginCenter();

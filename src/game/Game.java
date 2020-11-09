@@ -13,12 +13,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Game implements ApplicationListener
 {
 	private static int windowWidth = 1024;
 	private static int windowHeight = 576;
-	private static int spriteSize = 16;
+	private static int spriteSize = 32;
 	private static float scale;
 	
 	private static SpriteBatch spriteBatch;
@@ -36,6 +38,7 @@ public class Game implements ApplicationListener
 		
 		spriteBatch = new SpriteBatch();
 		spriteBatch.setProjectionMatrix(camera.combined);
+		spriteBatch.enableBlending();
 		
 		scale = (float)Gdx.graphics.getWidth() / windowWidth;
 		
@@ -52,6 +55,16 @@ public class Game implements ApplicationListener
 		spriteBatch.begin();
 		entity.render();
 		spriteBatch.end();
+		
+		ShapeRenderer shape = new ShapeRenderer();
+		shape.setProjectionMatrix(Game.getCamera().combined);
+		shape.begin(ShapeType.Filled);
+		shape.setColor(1,0,0,1);
+		shape.circle((float) (((Game.getSpriteSize() * Game.getScale()) * Math.cos(entity.sprite.getRotation() / (Game.getSpriteSize() * 1.8)))) + entity.x, (float) ((Game.getSpriteSize()* Game.getScale()) * Math.sin(entity.sprite.getRotation() / (Game.getSpriteSize() * 1.8))) + entity.y, (4f * Game.getScale()));
+		//System.out.println(entity.sprite.getRotation());
+		shape.end();
+		shape.dispose();
+		
 		//spriteBatch.dispose();
 		
 		update();
