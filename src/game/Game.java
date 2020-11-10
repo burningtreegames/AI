@@ -20,7 +20,7 @@ public class Game implements ApplicationListener
 {
 	private static int windowWidth = 1024;
 	private static int windowHeight = 576;
-	private static int spriteSize = 32;
+	private static int spriteSize = 16;
 	private static float scale;
 	
 	private static SpriteBatch spriteBatch;
