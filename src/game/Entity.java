@@ -22,7 +22,7 @@ public class Entity
 	static private float maxSpeed;
 	static private float maxRotSpeed;
 	
-	static Sprite sprite;
+	Sprite sprite;
 	
 	public Entity(float x, float y)
 	{
